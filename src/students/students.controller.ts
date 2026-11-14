@@ -12,6 +12,7 @@ import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { PaginationQueryDto } from './dto/pagination-query.dto';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @Controller('students')
 export class StudentsController {
@@ -22,6 +23,7 @@ export class StudentsController {
     return this.studentService.findAll(paginationQueryDto);
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     console.log('StudentsController');
