@@ -44,6 +44,7 @@ export class StudentsService {
         courses: true,
       },
     });
+    console.log(student);
     if (!student) {
       throw new NotFoundException(`Student with id #${id} does not exist`);
     }

@@ -25,8 +25,9 @@ export class StudentsController {
 
   @Public()
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     console.log('StudentsController');
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     return this.studentService.findOne(id);
   }
 
