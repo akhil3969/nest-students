@@ -24,6 +24,7 @@ export class StudentsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log('StudentsController');
     return this.studentService.findOne(id);
   }
 

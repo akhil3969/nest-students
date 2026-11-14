@@ -37,6 +37,7 @@ export class StudentsService {
   }
 
   async findOne(id: string) {
+    console.log('StudentsService');
     const student = await this.studentRepository.findOne({
       where: { id: +id },
       relations: {
