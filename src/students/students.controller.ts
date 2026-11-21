@@ -14,11 +14,13 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { PaginationQueryDto } from './dto/pagination-query.dto';
 import { Public } from 'src/common/decorators/public.decorator';
+import { ApiForbiddenResponse } from '@nestjs/swagger';
 
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentService: StudentsService) {}
 
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Get()
   async findAll(@Query() paginationQueryDto: PaginationQueryDto) {
     console.log('StudentsController');
