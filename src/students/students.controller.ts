@@ -5,6 +5,7 @@ import {
   ForbiddenException,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -19,13 +20,17 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { PaginationQueryDto } from './dto/pagination-query.dto';
 import { Public } from 'src/common/decorators/public.decorator';
+import { ApiForbiddenResponse } from '@nestjs/swagger';
 
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentService: StudentsService) {}
 
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
   @Get()
-  findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+  async findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+    console.log('StudentsController');
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     return this.studentService.findAll(paginationQueryDto);
   }
 
@@ -51,9 +56,8 @@ export class StudentsController {
   @Public()
 >>>>>>> c0a051b2806a8501bf053417b0b6a360deed0c7a
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    console.log('StudentsController');
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+  findOne(@Param('id', ParseIntPipe) id: string) {
+    console.log(id); // test before adding the pipe
     return this.studentService.findOne(id);
   }
 
