@@ -1,4 +1,4 @@
-import { StudentRefactor1794644897262 } from 'src/migrations/1794644897262-StudentRefactor';
+import { StudentRefactor1794644897262 } from './src/migrations/1794644897262-StudentRefactor';
 import { DataSource } from 'typeorm';
 
 export default new DataSource({

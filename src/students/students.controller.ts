@@ -2,12 +2,18 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   Param,
   Patch,
   Post,
   Query,
+  UseFilters,
+  UseGuards,
 } from '@nestjs/common';
+import { ForbiddenExceptionFilter } from '../filters/forbidden-exception.filter';
+import { StudentGuard } from '../guards/student.guard';
+import { UppercasePipe } from '../pipes/uppercase.pipe';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
@@ -20,6 +26,23 @@ export class StudentsController {
   @Get()
   findAll(@Query() paginationQueryDto: PaginationQueryDto) {
     return this.studentService.findAll(paginationQueryDto);
+  }
+
+  @Get('forbidden')
+  @UseFilters(ForbiddenExceptionFilter)
+  getForbidden() {
+    throw new ForbiddenException();
+  }
+
+  @Get('protected')
+  @UseGuards(StudentGuard)
+  getProtected() {
+    return { message: 'Welcome, student!' };
+  }
+
+  @Get('name/:name')
+  getName(@Param('name', UppercasePipe) name: string) {
+    return { name };
   }
 
   @Get(':id')
