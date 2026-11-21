@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -19,15 +20,16 @@ export class StudentsController {
   constructor(private readonly studentService: StudentsService) {}
 
   @Get()
-  findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+  async findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+    console.log('StudentsController');
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     return this.studentService.findAll(paginationQueryDto);
   }
 
   @Public()
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    console.log('StudentsController');
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+  findOne(@Param('id', ParseIntPipe) id: string) {
+    console.log(id); // test before adding the pipe
     return this.studentService.findOne(id);
   }
 
