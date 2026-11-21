@@ -18,6 +18,7 @@ import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { PaginationQueryDto } from './dto/pagination-query.dto';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @Controller('students')
 export class StudentsController {
@@ -28,6 +29,7 @@ export class StudentsController {
     return this.studentService.findAll(paginationQueryDto);
   }
 
+<<<<<<< HEAD
   @Get('forbidden')
   @UseFilters(ForbiddenExceptionFilter)
   getForbidden() {
@@ -45,8 +47,13 @@ export class StudentsController {
     return { name };
   }
 
+=======
+  @Public()
+>>>>>>> c0a051b2806a8501bf053417b0b6a360deed0c7a
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
+    console.log('StudentsController');
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     return this.studentService.findOne(id);
   }
 

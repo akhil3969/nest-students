@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { StudentsModule } from './students/students.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { StudentsModule } from './students/students.module';
         DATABASE_PORT: Joi.required().default(5444),
       }),
     }),
+    CommonModule,
     StudentsModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
